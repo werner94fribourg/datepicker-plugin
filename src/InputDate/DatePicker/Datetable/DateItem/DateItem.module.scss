@@ -1,0 +1,37 @@
+.calendar-cell {
+  width: 14.2857142%;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #666;
+  font-size: 12px;
+  text-align: right;
+  vertical-align: middle;
+  padding: 0;
+  border-collapse: collapse;
+  cursor: pointer;
+  height: 25px;
+}
+
+.calendar-date {
+  &:hover {
+    color: #fff !important;
+    background: #ff8000 !important;
+    box-shadow: none !important;
+  }
+  div {
+    padding-right: 5px;
+  }
+  &.today {
+    color: #33aaff;
+  }
+  &.active {
+    background: #33aaff;
+    box-shadow: #178fe5 0 1px 3px 0 inset;
+    color: #fff;
+    font-weight: 700;
+  }
+  &.other-month {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
