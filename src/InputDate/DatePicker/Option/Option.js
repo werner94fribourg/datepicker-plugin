@@ -4,10 +4,14 @@ const Option = props => {
   const { className, activeValue, scrollerDisplayed, onClick, children } =
     props;
 
+  const dataTestId = props['data-testid'];
   return (
     <div
+      data-testid={dataTestId}
       className={`${styles['select-label']} ${styles[className]}`}
       onClick={onClick}
+      data-hidden={scrollerDisplayed}
+      data-active={activeValue}
     >
       <span>{activeValue}</span>
       <div

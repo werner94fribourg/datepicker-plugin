@@ -13,12 +13,9 @@ import YearOption from './Option/YearOption/YearOption';
 
 const Datepicker = props => {
   const { position, picker } = props;
-  const { id } = picker;
+  const { id, displayedMonth, displayedYear } = picker;
   const [scrollerMonthDisplayed, setScrollerMonthDisplayed] = useState(false);
   const [scrollerYearDisplayed, setScrollerYearDisplayed] = useState(false);
-
-  const displayedMonth = picker.displayedMonth;
-  const displayedYear = picker.displayedYear;
 
   const dispatch = useDispatch();
 
@@ -50,13 +47,25 @@ const Datepicker = props => {
   return createPortal(
     <div
       className={`${styles.datepicker}`}
+      data-testid="datepicker"
       style={{ left: position.x, top: position.y }}
-      data-id={picker.id}
+      data-id={id}
+      data-month={displayedMonth}
+      data-year={displayedYear}
     >
-      <NavButton className="prev-btn" onClick={prevMonthHandler} />
-      <NavButton className="today-btn" onClick={todayHandler} />
+      <NavButton
+        className="prev-btn"
+        data-testid="prev-btn"
+        onClick={prevMonthHandler}
+      />
+      <NavButton
+        className="today-btn"
+        data-testid="today-btn"
+        onClick={todayHandler}
+      />
       <Option
         className="month"
+        data-testid="month-option"
         onClick={scrollerMonthHandler}
         activeValue={months[displayedMonth]}
         scrollerDisplayed={scrollerMonthDisplayed}
@@ -74,6 +83,7 @@ const Datepicker = props => {
       </Option>
       <Option
         className="year"
+        data-testid="year-option"
         onClick={scrollerYearHandler}
         activeValue={displayedYear}
         scrollerDisplayed={scrollerYearDisplayed}
@@ -88,7 +98,11 @@ const Datepicker = props => {
           />
         ))}
       </Option>
-      <NavButton className="next-btn" onClick={nextMonthHandler} />
+      <NavButton
+        className="next-btn"
+        data-testid="next-btn"
+        onClick={nextMonthHandler}
+      />
       <div className={styles.calendar}>
         <Datetable picker={picker} />
       </div>

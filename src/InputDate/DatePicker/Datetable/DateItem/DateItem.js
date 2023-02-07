@@ -11,6 +11,9 @@ const DateItem = props => {
   const displayedMonth = picker.displayedMonth;
   const today = new Date(Date.now());
   const dispatch = useDispatch();
+  const isSelected = currentSelectedDate.toDateString() === date.toDateString();
+  const isToday = today.toDateString() === date.toDateString();
+  const isInDisplayedMonth = date.getMonth() !== displayedMonth;
 
   const selectDateHandler = event => {
     event.stopPropagation();
@@ -19,17 +22,22 @@ const DateItem = props => {
 
   let classNames = `${styles['calendar-cell']} ${styles['calendar-date']}`;
 
-  if (currentSelectedDate.toDateString() === date.toDateString())
-    classNames = classNames.concat(` ${styles.active}`);
+  if (isSelected) classNames = classNames.concat(` ${styles.active}`);
 
-  if (today.toDateString() === date.toDateString())
-    classNames = classNames.concat(` ${styles.today}`);
+  if (isToday) classNames = classNames.concat(` ${styles.today}`);
 
-  if (date.getMonth() !== displayedMonth)
+  if (isInDisplayedMonth)
     classNames = classNames.concat(` ${styles['other-month']}`);
 
   return (
-    <td className={classNames} onClick={selectDateHandler}>
+    <td
+      className={classNames}
+      onClick={selectDateHandler}
+      data-testid="date-item"
+      data-date={date}
+      data-today={isToday}
+      data-selected={isSelected}
+    >
       <div>{date.getUTCDate()}</div>
     </td>
   );

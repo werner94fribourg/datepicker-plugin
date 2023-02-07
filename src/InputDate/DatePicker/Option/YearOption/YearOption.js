@@ -17,7 +17,11 @@ const YearOption = props => {
   if (year === displayedYear) classNames = classNames.concat(` ${active}`);
 
   return (
-    <div className={classNames} onClick={optionHandler}>
+    <div
+      className={classNames}
+      onClick={optionHandler}
+      data-testid={`year-option-${year}`}
+    >
       {year}
     </div>
   );

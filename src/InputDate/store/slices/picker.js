@@ -79,7 +79,6 @@ const pickerSlice = createSlice({
       const displayedMonth = chosenDate.getMonth();
       const displayedYear = chosenDate.getFullYear();
 
-      picker.chosenDate = now;
       picker.displayedMonth = displayedMonth;
       picker.displayedYear = displayedYear;
     },

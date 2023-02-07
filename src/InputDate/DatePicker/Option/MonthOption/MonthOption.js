@@ -19,7 +19,11 @@ const MonthOption = props => {
   if (id === displayedMonth) classNames = classNames.concat(` ${active}`);
 
   return (
-    <div className={classNames} onClick={optionHandler}>
+    <div
+      className={classNames}
+      onClick={optionHandler}
+      data-testid={`month-option-${id}`}
+    >
       {value}
     </div>
   );

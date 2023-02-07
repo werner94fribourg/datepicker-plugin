@@ -41,3 +41,14 @@ export const generateDays = (month, year) => {
 
   return datesArray;
 };
+
+export const getPreviousMonth = (month, year) => {
+  if (month === 0) return [11, --year];
+
+  return [--month, year];
+};
+
+export const getNextMonth = (month, year) => {
+  if (month === 11) return [0, ++year];
+  return [++month, year];
+};

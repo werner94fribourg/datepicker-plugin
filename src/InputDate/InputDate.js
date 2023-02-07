@@ -44,6 +44,7 @@ const InputDate = props => {
   return (
     <React.Fragment>
       <input
+        data-testid="input-date"
         className={className}
         id={id}
         type="date"
