@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { InputDateProvider } from '../../InputDate';
+import InputDateProvider from '../../InputDateProvider';
 import { getNextMonth, getPreviousMonth } from '../../utils/helpers';
 import { pickerActions } from './picker';
 

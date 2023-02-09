@@ -1,4 +1,5 @@
-import InputDate, { InputDateProvider } from './InputDate/InputDate';
+import InputDate from './InputDate/InputDate';
+import InputDateProvider from './InputDate/InputDateProvider';
 
 function App() {
   return (

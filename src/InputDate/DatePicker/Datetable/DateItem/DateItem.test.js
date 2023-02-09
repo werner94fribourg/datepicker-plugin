@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import InputDate, { InputDateProvider } from '../../../InputDate';
+import InputDate from '../../../InputDate';
+import InputDateProvider from '../../../InputDateProvider';
 
 describe('<DateItem />', () => {
   let dateItemEls;

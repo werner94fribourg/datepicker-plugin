@@ -1,8 +1,16 @@
 import { useDispatch } from 'react-redux';
 
+import PropTypes from 'prop-types';
+
 import { pickerActions } from '../../../store/slices/picker';
 import styles from './DateItem.module.scss';
 
+/**
+ * Component representing a selectable date in the table of dates.
+ *
+ * @version 1.0.0
+ * @author [Werner Schmid](https://github.com/werner94fribourg)
+ */
 const DateItem = props => {
   const { date, picker } = props;
   const { id } = picker;
@@ -43,4 +51,10 @@ const DateItem = props => {
   );
 };
 
+DateItem.propTypes = {
+  /** The associated datepicker values displayed on the datepicker */
+  picker: PropTypes.object.isRequired,
+  /** The date associated with the item */
+  date: PropTypes.instanceOf(Date).isRequired,
+};
 export default DateItem;

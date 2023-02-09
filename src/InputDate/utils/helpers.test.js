@@ -1,6 +1,8 @@
 import {
   generateDays,
   getNextMonth,
+  getPickerDate,
+  getPickerVisibility,
   getPreviousMonth,
   getWeekDay,
 } from './helpers';
@@ -116,6 +118,51 @@ describe('test of helper functions', () => {
 
       expect(nextMonth).toBe(0);
       expect(nextYear).toBe(year + 1);
+    });
+  });
+  describe('getPickerDate', () => {
+    test("returns today's formatted date if the picker object doesn't contain a date", () => {
+      const picker = {};
+      const today = new Date(Date.now());
+
+      const returnedByPicker = getPickerDate(picker);
+
+      expect(returnedByPicker).toBe(today.toISOString().split('T')[0]);
+    });
+    test('returns the date in a formatted form if the picker object contains a date', () => {
+      const chosenDate = Date.parse('2019-01-01');
+      const picker = {
+        chosenDate,
+      };
+
+      const returnedByPicker = getPickerDate(picker);
+
+      expect(returnedByPicker).toBe(
+        new Date(chosenDate).toISOString().split('T')[0]
+      );
+    });
+  });
+  describe('getPickerVisibility', () => {
+    test("returns false if the picker object doesn't contain a visible key", () => {
+      const picker = {};
+
+      const pickerVisibility = getPickerVisibility(picker);
+
+      expect(pickerVisibility).toBeFalsy();
+    });
+    test("returns true if the picker object's visible key is true", () => {
+      const picker = { visible: true };
+
+      const pickerVisibility = getPickerVisibility(picker);
+
+      expect(pickerVisibility).toBeTruthy();
+    });
+    test("returns false if the picker object's visible key is false", () => {
+      const picker = { visible: false };
+
+      const pickerVisibility = getPickerVisibility(picker);
+
+      expect(pickerVisibility).toBeFalsy();
     });
   });
 });

@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import InputDate, { InputDateProvider } from './InputDate';
+import InputDate from './InputDate';
+import InputDateProvider from './InputDateProvider';
 
 describe('<InputDate />', () => {
   describe('When a single InputDate component is rendered,', () => {
@@ -35,13 +36,15 @@ describe('<InputDate />', () => {
 
         expect(datepickerEl).toBeInTheDocument();
       });
-      test('the datepicker stays rendered if we click again on the input date', () => {
+      test('the datepicker is hidden if we click again on the input date', () => {
         const inputDateEl = screen.getByTestId('input-date');
 
         userEvent.click(inputDateEl);
-        const datepickerEl = screen.getByTestId('datepicker');
+        const getPickerFn = () => {
+          screen.getByTestId('datepicker');
+        };
 
-        expect(datepickerEl).toBeInTheDocument();
+        expect(getPickerFn).toThrow();
       });
       test('the datepicker stays rendered if we click on the datepicker', () => {
         const datepickerEl = screen.getByTestId('datepicker');
