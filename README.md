@@ -8,13 +8,21 @@ The datepicker module was published as an npm package.
 
 ## Documentation
 
-The available components in this library are documented in this [page](https://github.com/xdan/datetimepicker).
+The available components in this library are documented in this [page](https://sensational-yeot-db94d1.netlify.app).
 
 ## Use the datepicker
 
 ### Pre-requisites
 
+React should be installed on your project to use the module since it is a custom react component.
+
 ### Installation
+
+Type the following command to install the module in your react project :
+
+```sh
+npm install @werner94fribourg/datepicker-plugin
+```
 
 ### Example
 

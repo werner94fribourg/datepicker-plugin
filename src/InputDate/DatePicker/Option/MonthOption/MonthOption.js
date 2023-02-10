@@ -41,7 +41,7 @@ MonthOption.propTypes = {
   /** The index of the month option displayed in the option */
   id: PropTypes.number.isRequired,
   /** The text value of the month displayed in the option */
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   /** The associated datepicker values displayed on the datepicker */
   picker: PropTypes.object.isRequired,
   /** The styles passed from a parent component invoking the YearOption component */

@@ -1,3 +1,4 @@
+import css from '@modular-css/rollup';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
@@ -30,6 +31,17 @@ export default [
     plugins: [
       // This prevents needing an additional `external` prop in this config file by automaticall excluding peer dependencies
       peerDepsExternal(),
+      postcss({
+        extract: false,
+        modules: true,
+        use: ['sass'],
+      }),
+      // Do Babel transpilation
+      babel({
+        exclude: 'node_modules/**',
+        babelHelpers: 'bundled',
+        presets: [['@babel/preset-react', { runtime: 'automatic' }]],
+      }),
       // Convert CommonJS modules to ES6
       commonjs({
         include: 'node_modules/**',
@@ -40,26 +52,7 @@ export default [
       }),
       // "...locates modules using the Node resolution algorithm"
       resolve(),
-      // Do Babel transpilation
-      babel({
-        exclude: 'node_modules/**',
-        babelHelpers: 'bundled',
-      }),
       // Does a number of things; Compiles sass, run autoprefixer, creates a sourcemap, and saves a .css file
-      postcss({
-        preprocessor: (content, id) =>
-          new Promise(res => {
-            const result = sass.renderSync({ file: id });
-
-            res({ code: result.css.toString() });
-          }),
-        plugins: [autoprefixer],
-        modules: {
-          scopeBehaviour: 'global',
-        },
-        sourceMap: true,
-        extract: true,
-      }),
     ],
   },
 ];

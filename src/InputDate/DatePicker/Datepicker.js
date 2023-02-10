@@ -103,7 +103,7 @@ const Datepicker = props => {
         type="year"
         data-testid="year-option"
         onClick={scrollerYearHandler}
-        activeValue={displayedYear}
+        activeValue={`${displayedYear}`}
         scrollerDisplayed={scrollerYearDisplayed}
       >
         {yearsArray.map(value => (
