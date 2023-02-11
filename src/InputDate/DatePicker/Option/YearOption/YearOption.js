@@ -1,8 +1,6 @@
-import { useDispatch } from 'react-redux';
-
+import { PickerContext } from '../../../store/picker-store';
 import PropTypes from 'prop-types';
-
-import { pickerActions } from '../../../store/slices/picker';
+import { useContext } from 'react';
 
 /**
  * Component representing a year choice in an option selector
@@ -14,11 +12,11 @@ const YearOption = props => {
   const { picker, year, className, active } = props;
   const { id } = picker;
   const displayedYear = picker.displayedYear;
-  const dispatch = useDispatch();
+  const { dispatch } = useContext(PickerContext);
 
   const optionHandler = () => {
     if (year !== displayedYear)
-      dispatch(pickerActions.setDisplayedYear({ id, displayedYear: year }));
+      dispatch({ type: 'set_displayed_year', id, year });
   };
   let classNames = className;
 

@@ -1,9 +1,7 @@
-import { useDispatch } from 'react-redux';
-
-import PropTypes from 'prop-types';
-
-import { pickerActions } from '../../../store/slices/picker';
+import { PickerContext } from '../../../store/picker-store';
 import styles from './DateItem.module.scss';
+import PropTypes from 'prop-types';
+import { useContext } from 'react';
 
 /**
  * Component representing a selectable date in the table of dates.
@@ -14,18 +12,18 @@ import styles from './DateItem.module.scss';
 const DateItem = props => {
   const { date, picker } = props;
   const { id } = picker;
-  const currentSelectedDate = new Date(picker.chosenDate);
+  const { dispatch } = useContext(PickerContext);
 
+  const currentSelectedDate = new Date(picker.chosenDate);
   const displayedMonth = picker.displayedMonth;
   const today = new Date(Date.now());
-  const dispatch = useDispatch();
   const isSelected = currentSelectedDate.toDateString() === date.toDateString();
   const isToday = today.toDateString() === date.toDateString();
   const isInDisplayedMonth = date.getMonth() !== displayedMonth;
 
   const selectDateHandler = event => {
     event.stopPropagation();
-    dispatch(pickerActions.setDate({ id, date: date.getTime() }));
+    dispatch({ type: 'date', id, date: date.getTime() });
   };
 
   let classNames = `${styles['calendar-cell']} ${styles['calendar-date']}`;

@@ -1,8 +1,6 @@
-import { useDispatch } from 'react-redux';
-
+import { PickerContext } from '../../../store/picker-store';
 import PropTypes from 'prop-types';
-
-import { pickerActions } from '../../../store/slices/picker';
+import { useContext } from 'react';
 
 /**
  * Component representing a month choice in an option selector
@@ -14,12 +12,15 @@ const MonthOption = props => {
   const { id, value, picker, className, active } = props;
   const { id: pickerId } = picker;
   const displayedMonth = picker.displayedMonth;
-  const dispatch = useDispatch();
+  const { dispatch } = useContext(PickerContext);
+
   const optionHandler = () => {
     if (id !== displayedMonth)
-      dispatch(
-        pickerActions.setDisplayedMonth({ id: pickerId, displayedMonth: id })
-      );
+      dispatch({
+        type: 'set_displayed_month',
+        id: pickerId,
+        month: id,
+      });
   };
 
   let classNames = className;

@@ -1,12 +1,9 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import InputDateProvider from '../InputDateProvider';
+import { getNextMonth, getPreviousMonth } from '../utils/helpers';
+import { PickerContext } from './picker-store';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-import InputDateProvider from '../../InputDateProvider';
-import { getNextMonth, getPreviousMonth } from '../../utils/helpers';
-import { pickerActions } from './picker';
+import React, { useContext } from 'react';
 
 let pickers;
 let pickerId = 'picker';
@@ -14,34 +11,37 @@ const randomDate = new Date(Date.now());
 const displayedMonth = 3;
 const displayedYear = 2015;
 const TestComponent = () => {
-  pickers = useSelector(state => state.picker.pickers);
-  const dispatch = useDispatch();
+  const ctx = useContext(PickerContext);
+  pickers = ctx.pickers;
+  const { dispatch } = ctx;
   const registerHandler = () => {
-    dispatch(pickerActions.registerPicker(pickerId));
+    dispatch({ type: 'register', id: pickerId });
   };
   const visibilityHandler = () => {
-    dispatch(pickerActions.setVisibility({ id: pickerId, visible: true }));
+    dispatch({ type: 'visibility', id: pickerId, visible: true });
   };
   const dateHandler = () => {
-    dispatch(
-      pickerActions.setDate({ id: pickerId, date: randomDate.getTime() })
-    );
+    dispatch({ type: 'date', id: pickerId, date: randomDate.getTime() });
   };
   const setMonthHandler = () => {
-    dispatch(pickerActions.setDisplayedMonth({ id: pickerId, displayedMonth }));
+    dispatch({
+      type: 'set_displayed_month',
+      id: pickerId,
+      month: displayedMonth,
+    });
   };
   const setYearHandler = () => {
-    dispatch(pickerActions.setDisplayedYear({ id: pickerId, displayedYear }));
+    dispatch({ type: 'set_displayed_year', id: pickerId, year: displayedYear });
   };
   const incrementMonthHandler = () => {
-    dispatch(pickerActions.incrementDisplayMonth({ id: pickerId }));
+    dispatch({ type: 'increment', id: pickerId });
   };
   const decrementMonthHandler = () => {
-    dispatch(pickerActions.decrementDisplayMonth({ id: pickerId }));
+    dispatch({ type: 'decrement', id: pickerId });
   };
 
   const todayHandler = () => {
-    dispatch(pickerActions.setTodayDisplayedValues({ id: pickerId }));
+    dispatch({ type: 'set_today', id: pickerId });
   };
   return (
     <React.Fragment>
@@ -73,11 +73,10 @@ describe('Picker store', () => {
         <TestComponent />
       </InputDateProvider>
     );
-  });
-  test('The store successfully registers a new picker', () => {
     const clickBtn = screen.getByTestId('register-picker');
     userEvent.click(clickBtn);
-
+  });
+  test('The store successfully registers a new picker', () => {
     const today = new Date(Date.now());
     const picker = pickers.find(picker => picker.id === pickerId);
 
@@ -88,6 +87,7 @@ describe('Picker store', () => {
   });
   test('The store successfully changes the visibility of an existing picker', () => {
     let picker = pickers.find(picker => picker.id === pickerId);
+
     const visibilityBtn = screen.getByTestId('modify-visibility');
 
     expect(picker.visible).toBeFalsy();
@@ -116,7 +116,6 @@ describe('Picker store', () => {
     const monthBtn = screen.getByTestId('set-month');
 
     userEvent.click(monthBtn);
-
     let picker = pickers.find(picker => picker.id === pickerId);
     expect(picker.displayedMonth).toBe(displayedMonth);
   });

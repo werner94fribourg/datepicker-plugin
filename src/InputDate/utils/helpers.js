@@ -114,3 +114,15 @@ export const getPickerDate = picker => {
 export const getPickerVisibility = picker => {
   return picker?.visible || false;
 };
+
+/**
+ * Function used to update the value of an element in an array at a specific position.
+ * @param {number} index - the index in the array of the picker element we want to update
+ * @param {Object} updatedElement - the new element we want to store at this position
+ * @param {Array} pickersArray - the array passed as a parameter to the function
+ * @returns {Array} the array passed as a parameter to the function
+ */
+export const generateUpdatedArray = (index, updatedElement, pickersArray) => {
+  pickersArray[index] = updatedElement;
+  return pickersArray;
+};

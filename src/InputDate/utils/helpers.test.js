@@ -1,5 +1,6 @@
 import {
   generateDays,
+  generateUpdatedArray,
   getNextMonth,
   getPickerDate,
   getPickerVisibility,
@@ -163,6 +164,31 @@ describe('test of helper functions', () => {
       const pickerVisibility = getPickerVisibility(picker);
 
       expect(pickerVisibility).toBeFalsy();
+    });
+  });
+  describe('generateUpdatedArray', () => {
+    test('returns the same array', () => {
+      const array = [3, 4, 6, 9];
+      const newArray = generateUpdatedArray(0, 4, array);
+
+      expect(array).toBe(newArray);
+    });
+    test('updates the element value at a specific position', () => {
+      const position = 3;
+      const array = [3, 4, 6, 9];
+      expect(array[position]).toBe(9);
+
+      const newArray = generateUpdatedArray(position, 4, array);
+
+      expect(newArray[position]).toBe(4);
+    });
+    test("doesn't update the array at other positions", () => {
+      const position = 3;
+      const array = [3, 4, 6, 9];
+      expect(array[0]).toBe(3);
+      const newArray = generateUpdatedArray(position, 4, array);
+
+      expect(newArray[0]).toBe(3);
     });
   });
 });

@@ -1,8 +1,5 @@
-import { Provider } from 'react-redux';
-
+import PickerContextProvider from './store/picker-store';
 import PropTypes from 'prop-types';
-
-import store from './store/store';
 
 /**
  * InputDate store provider, that gives access to the picker's general store.
@@ -11,7 +8,7 @@ import store from './store/store';
  * @author [Werner Schmid](https://github.com/werner94fribourg)
  */
 const InputDateProvider = props => {
-  return <Provider store={store}>{props.children}</Provider>;
+  return <PickerContextProvider>{props.children}</PickerContextProvider>;
 };
 
 InputDateProvider.propTypes = {

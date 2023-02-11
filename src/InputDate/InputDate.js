@@ -1,12 +1,9 @@
-import React, { useEffect, useId, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
-import PropTypes from 'prop-types';
-
 import Datepicker from './DatePicker/Datepicker';
-import { pickerActions } from './store/slices/picker';
+import { PickerContext } from './store/picker-store';
 import { getPickerDate, getPickerVisibility } from './utils/helpers';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 /**
  * Input date component, rendering a date input and a datepicker to select a date from it.
@@ -21,8 +18,7 @@ const InputDate = props => {
   // Generates a new id each time an InputDate component is created in the App
   // This id is used to register the new picker in the store and handle its behaviors
   const pickerId = useId();
-  const pickers = useSelector(state => state.picker.pickers);
-  const dispatch = useDispatch();
+  const { pickers, dispatch } = useContext(PickerContext);
   const picker = pickers.find(picker => picker.id === pickerId);
   // Picker's informations : date and visibility
   const pickerDate = getPickerDate(picker);
@@ -37,9 +33,7 @@ const InputDate = props => {
   // Changes the visibility of the picker when we click on the input date
   // The handler also sets the position of the picker relatively to the input element
   const pickerStatusHandler = () => {
-    dispatch(
-      pickerActions.setVisibility({ id: pickerId, visible: !pickerVisible })
-    );
+    dispatch({ type: 'visibility', id: pickerId, visible: !pickerVisible });
     const boundings = inputRef.current.getBoundingClientRect();
 
     if (
@@ -55,13 +49,12 @@ const InputDate = props => {
   // Registers the picker in the store the first time it's created
   // Also create an event listener on the document that will hide the picker if we don't click on an element related to this picker (the input date or the picker itself)
   useEffect(() => {
-    dispatch(pickerActions.registerPicker(pickerId));
-
+    dispatch({ type: 'register', id: pickerId });
     document.addEventListener('click', event => {
       const element = event.target.closest(`*[data-id="${pickerId}"]`);
 
       if (element) return;
-      dispatch(pickerActions.setVisibility({ id: pickerId, visible: false }));
+      dispatch({ type: 'visibility', id: pickerId, visible: false });
     });
   }, [pickerId, dispatch]);
 

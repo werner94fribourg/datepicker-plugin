@@ -1,12 +1,9 @@
-import css from '@modular-css/rollup';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import autoprefixer from 'autoprefixer';
 import { readFile } from 'fs/promises';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
-import sass from 'sass';
 
 const packageJson = JSON.parse(
   await readFile(new URL('./package.json', import.meta.url))

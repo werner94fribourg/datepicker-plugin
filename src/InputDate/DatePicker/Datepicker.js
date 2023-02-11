@@ -1,9 +1,4 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import PropTypes from 'prop-types';
-
-import { pickerActions } from '../store/slices/picker';
+import { PickerContext } from '../store/picker-store';
 import { months } from '../utils/globals';
 import styles from './Datepicker.module.scss';
 import Datetable from './Datetable/Datetable';
@@ -11,6 +6,8 @@ import NavButton from './NavButton/NavButton';
 import MonthOption from './Option/MonthOption/MonthOption';
 import Option from './Option/Option';
 import YearOption from './Option/YearOption/YearOption';
+import PropTypes from 'prop-types';
+import { useContext, useState } from 'react';
 
 /**
  * Datepicker element. It corresponds to the datepicker rendered when we click an InputDate component.
@@ -24,11 +21,11 @@ const Datepicker = props => {
   // Data retrieved used in the rendering
   const { id, displayedMonth, displayedYear } = picker;
 
+  const { dispatch } = useContext(PickerContext);
+
   // State management for the display of the month and year scrollers
   const [scrollerMonthDisplayed, setScrollerMonthDisplayed] = useState(false);
   const [scrollerYearDisplayed, setScrollerYearDisplayed] = useState(false);
-
-  const dispatch = useDispatch();
 
   // List of years that will be displayed in the year selector - from 1930 to 2023
   const yearsArray = Array.from(
@@ -48,17 +45,17 @@ const Datepicker = props => {
 
   // Changes the displayed month and year to be the previous month and year in the calendar
   const prevMonthHandler = () => {
-    dispatch(pickerActions.decrementDisplayMonth({ id }));
+    dispatch({ type: 'decrement', id });
   };
 
   // Changes the displayed month and year to be the next month and year in the calendar
   const nextMonthHandler = () => {
-    dispatch(pickerActions.incrementDisplayMonth({ id }));
+    dispatch({ type: 'increment', id });
   };
 
   // Sets the displayed month and year to be today's current month and year
   const todayHandler = () => {
-    dispatch(pickerActions.setTodayDisplayedValues({ id }));
+    dispatch({ type: 'set_today', id });
   };
 
   // The component is initialized using createPortal to make it be a direct child of the body element

@@ -1,10 +1,9 @@
 {
-  "name": "@werner94fribourg/datepicker-plugin",
+  "name": "@werner94fribourg/datepicker",
   "version": "1.0.0",
   "description": "A react input with datepicker library",
   "private": false,
   "peerDependencies": {
-    "@reduxjs/toolkit": "^1.9.2",
     "@rollup/plugin-babel": "^6.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -14,7 +13,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-id-generator": "^3.0.2",
-    "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
