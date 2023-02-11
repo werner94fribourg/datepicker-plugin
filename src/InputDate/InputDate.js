@@ -12,9 +12,6 @@ import { createPortal } from 'react-dom';
  * @author [Werner Schmid](https://github.com/werner94fribourg)
  */
 const InputDate = props => {
-  // Styles that will be passed from a parent component invoking the datepicker to customize the rendering of the input field
-  const { className } = props;
-
   // Generates a new id each time an InputDate component is created in the App
   // This id is used to register the new picker in the store and handle its behaviors
   const pickerId = useId();
@@ -61,8 +58,8 @@ const InputDate = props => {
   return (
     <React.Fragment>
       <input
+        {...props}
         data-testid="input-date"
-        className={className}
         type="date"
         value={pickerDate}
         readOnly
