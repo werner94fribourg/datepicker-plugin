@@ -16,7 +16,7 @@ const InputDate = props => {
   // This id is used to register the new picker in the store and handle its behaviors
   const pickerId = useId();
   const { pickers, dispatch } = useContext(PickerContext);
-  const picker = pickers.find(picker => picker.id === pickerId);
+  const picker = pickers?.find(picker => picker.id === pickerId);
   // Picker's informations : date and visibility
   const pickerDate = getPickerDate(picker);
   const pickerVisible = getPickerVisibility(picker);
