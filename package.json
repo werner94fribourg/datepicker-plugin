@@ -1,5 +1,5 @@
 {
-  "name": "@werner94fribourg/datepicker",
+  "name": "werner94fribourg-datepicker",
   "version": "1.0.0",
   "description": "A react input with datepicker library",
   "private": false,
@@ -70,6 +70,6 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/werner94fribourg"
+    "registry": "https://registry.npmjs.org"
   }
 }
